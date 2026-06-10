@@ -1,0 +1,43 @@
+// Real file: packages/entities/src/value-objects/ExternalEvidence/ExternalEvidence.test.ts
+// Construction asserts every field reads back; the derived getter `isApplicable` is
+// exercised with an `it.each` table over [status, expected].
+
+import { ExternalEvidence } from './ExternalEvidence'
+import { ExternalEvidenceStatus, ExternalEvidenceTag, ExternalEvidenceType } from './types'
+
+describe(ExternalEvidence.name, () => {
+  it('should create a new instance', () => {
+    const sut = new ExternalEvidence({
+      externalId: 'evidenceId',
+      title: 'title',
+      type: ExternalEvidenceType.Document,
+      tag: ExternalEvidenceTag.Custom,
+      status: ExternalEvidenceStatus.Ready,
+    })
+
+    expect(sut.externalId).toStrictEqual('evidenceId')
+    expect(sut.title).toStrictEqual('title')
+    expect(sut.type).toStrictEqual(ExternalEvidenceType.Document)
+    expect(sut.tag).toStrictEqual(ExternalEvidenceTag.Custom)
+    expect(sut.status).toStrictEqual(ExternalEvidenceStatus.Ready)
+  })
+
+  const statuses: [ExternalEvidenceStatus, boolean][] = [
+    [ExternalEvidenceStatus.NotApplicable, false],
+    [ExternalEvidenceStatus.Accepted, true],
+    [ExternalEvidenceStatus.Rejected, true],
+    [ExternalEvidenceStatus.Ready, true],
+    [ExternalEvidenceStatus.NotReady, true],
+  ]
+  it.each(statuses)('should properly compute if the evidence is applicable', (status, isApplicable) => {
+    const sut = new ExternalEvidence({
+      externalId: 'evidenceId',
+      title: 'title',
+      type: ExternalEvidenceType.Document,
+      tag: ExternalEvidenceTag.Custom,
+      status: status,
+    })
+
+    expect(sut.isApplicable).toStrictEqual(isApplicable)
+  })
+})

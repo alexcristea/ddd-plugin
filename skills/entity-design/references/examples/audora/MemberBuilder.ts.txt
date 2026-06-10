@@ -1,0 +1,36 @@
+// Real file: packages/entities/tests/fakes/MemberBuilder.ts
+// A COMPOSED builder: the Member aggregate's root is produced by calling
+// `UserBuilder.build()` as the default for `root`. A test can still override the root
+// (e.g. `MemberBuilder.build({ root: UserBuilder.build({ uid: USER_UID }) })`) thanks
+// to the `{ ...storage, ...model }` merge.
+
+import { MemberRole, TenantType } from '@entities/entities'
+import { Member, MemberProps } from '@entities/aggregates'
+import { ObjectId } from '@entities/value-objects'
+import { faker } from '@faker-js/faker'
+import { ManyBuilder } from './Builder'
+import { UserBuilder } from './UserBuilder'
+
+export const MemberBuilder: ManyBuilder<MemberProps, Member> = {
+  build: (model) => {
+    const NOW = new Date()
+
+    const storage: MemberProps = {
+      uid: new ObjectId(faker.datatype.uuid()),
+      root: UserBuilder.build(),
+      engagementUid: new ObjectId(faker.datatype.uuid()),
+      tenantType: TenantType.consumer,
+      roles: [MemberRole.AuditorReviewer],
+      createdAt: NOW,
+      modifiedAt: NOW,
+    }
+
+    const params = { ...storage, ...model }
+
+    return new Member(params)
+  },
+
+  buildMany: (number, overrides) => {
+    return [...Array(number)].map(() => MemberBuilder.build(overrides))
+  },
+}

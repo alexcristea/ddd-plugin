@@ -1,0 +1,28 @@
+// Real file: packages/entities/src/aggregates/FileAggregate/FileAggregate.test.ts
+// A builder-driven aggregate test: the root entity is built with `FileBuilder` (from
+// the in-package `~/tests/fakes` alias) — never hand-assembled. Asserts root access
+// and the mutable, lazily-loaded `contents` field. No mocks.
+//
+// NOTE: this file predates two conventions — the shared mutable `sut` at describe
+// scope couples tests to execution order, and the constants are lowercase rather
+// than UPPER_SNAKE_CASE. In new tests, construct the SUT per test and follow §10.
+
+import { FileBuilder } from '~/tests/fakes'
+import { FileAggregate } from './FileAggregate'
+
+describe(FileAggregate.name, () => {
+  const file = FileBuilder.build()
+  const contents = Buffer.from('contents')
+
+  const sut = new FileAggregate({ root: file })
+
+  it('should return the root file', () => {
+    expect(sut.root).toStrictEqual(file)
+  })
+
+  it('should set the contents', () => {
+    sut.contents = contents
+
+    expect(sut.contents).toStrictEqual(contents)
+  })
+})

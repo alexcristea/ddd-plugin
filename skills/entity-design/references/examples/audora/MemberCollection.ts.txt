@@ -1,0 +1,25 @@
+// Real file: packages/entities/src/aggregates/Member/MemberCollection.ts
+// A Collection: `extends Collection<Member>` (which extends Array<Member>). The ctor
+// forwards to `super(members)`. Adds a named domain query that returns `Nullable`
+// (null for "not found", not a thrown error) and uses the inherited Array `.find`.
+
+import { MemberRole } from '../../entities'
+import { Collection } from '../../shared'
+import { Nullable } from '../../value-objects'
+import { Member } from './Member'
+
+export class MemberCollection extends Collection<Member> {
+  constructor(members: Member[]) {
+    super(members)
+  }
+
+  firstMemberWithRole(roles: MemberRole[]): Nullable<Member> {
+    for (const role of roles) {
+      const member = this.find((member) => member.roles.includes(role))
+      if (member) {
+        return member
+      }
+    }
+    return null
+  }
+}

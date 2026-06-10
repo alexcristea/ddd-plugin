@@ -1,0 +1,120 @@
+// Real file: packages/entities/src/entities/User/User.ts
+// An entity: `UserProps extends EntityProps`; ctor calls `super(props)` then assigns
+// domain fields, coalescing optionals (`roles || []`, `status || Pending`,
+// `phoneNumber || null`). Getters for all, setters only for mutable fields. Derived
+// getter `isActive`. `toJSON()` unwraps ObjectId fields to `.value`.
+
+import { TenantType } from '../../entities'
+import { Nullable, ObjectId } from '../../value-objects'
+import { Entity, EntityProps } from '../Entity'
+import { UserRole } from './UserRole'
+import { UserStatus } from './UserStatus'
+
+export interface UserProps extends EntityProps {
+  companyUid: ObjectId
+  roles?: UserRole[]
+  status?: UserStatus
+  isOwner?: boolean
+  // TODO: remove this field after user migration
+  tenantType: TenantType
+
+  email: string
+  fullName: string
+  phoneNumber?: Nullable<string>
+}
+
+export class User extends Entity {
+  private _companyUid: ObjectId
+  private _roles: UserRole[]
+  private _status: UserStatus
+  private _isOwner: boolean
+  private _tenantType: TenantType
+
+  private _email: string
+  private _fullName: string
+  private _phoneNumber: Nullable<string>
+
+  constructor(props: UserProps) {
+    super(props)
+
+    this._companyUid = props.companyUid
+    this._roles = props.roles || []
+    this._status = props.status || UserStatus.Pending
+    this._isOwner = props.isOwner || false
+    this._tenantType = props.tenantType
+    this._email = props.email
+    this._fullName = props.fullName
+    this._phoneNumber = props.phoneNumber || null
+  }
+
+  get companyUid(): ObjectId {
+    return this._companyUid
+  }
+
+  get roles(): UserRole[] {
+    return this._roles
+  }
+  set roles(roles: UserRole[]) {
+    this._roles = roles
+  }
+
+  get status(): UserStatus {
+    return this._status
+  }
+  set status(status: UserStatus) {
+    this._status = status
+  }
+
+  get isOwner(): boolean {
+    return this._isOwner
+  }
+  set isOwner(isOwner: boolean) {
+    this._isOwner = isOwner
+  }
+
+  get tenantType(): TenantType {
+    return this._tenantType
+  }
+
+  set tenantType(tenantType: TenantType) {
+    this._tenantType = tenantType
+  }
+
+  get email(): string {
+    return this._email
+  }
+
+  get fullName(): string {
+    return this._fullName
+  }
+  set fullName(fullName: string) {
+    this._fullName = fullName
+  }
+
+  get phoneNumber(): Nullable<string> {
+    return this._phoneNumber
+  }
+  set phoneNumber(phoneNumber: Nullable<string>) {
+    this._phoneNumber = phoneNumber
+  }
+
+  get isActive(): boolean {
+    return this._status === UserStatus.Active
+  }
+
+  toJSON() {
+    return {
+      id: this.uid.value,
+      companyUid: this._companyUid.value,
+      roles: this._roles,
+      status: this._status,
+      isOwner: this._isOwner,
+      tenantType: this._tenantType,
+      email: this._email,
+      fullName: this._fullName,
+      phoneNumber: this._phoneNumber,
+      createdAt: this._createdAt,
+      modifiedAt: this._modifiedAt,
+    }
+  }
+}

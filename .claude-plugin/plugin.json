@@ -1,0 +1,20 @@
+{
+  "name": "ddd",
+  "version": "0.1.0",
+  "description": "Design and unit-test DDD / Clean Architecture layers — domain model, repositories, and usecases — driven by a per-project profile.",
+  "author": {
+    "name": "Alex Cristea"
+  },
+  "homepage": "https://github.com/alexcristea/ddd-plugin",
+  "repository": "https://github.com/alexcristea/ddd-plugin",
+  "license": "MIT",
+  "keywords": [
+    "ddd",
+    "clean-architecture",
+    "entities",
+    "repositories",
+    "usecases",
+    "unit-testing",
+    "tdd"
+  ]
+}

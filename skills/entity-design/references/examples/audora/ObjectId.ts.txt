@@ -1,0 +1,37 @@
+// Real file: packages/entities/src/value-objects/ObjectId/ObjectId.ts
+// A LEGACY scalar value object — predates the `ValueObject` base, so it does NOT
+// extend it and has no `snapshot`; instead it exposes `value`, `toString`, `equals`,
+// and its own `toJSON`. Note the static factories `make` (nullable guard) + `withString`.
+
+import { Nullable } from '../types'
+
+export class ObjectId {
+  private readonly _value: string
+  get value(): string {
+    return this._value
+  }
+
+  constructor(uid: string) {
+    this._value = uid.trim()
+  }
+
+  toString(): string {
+    return this._value
+  }
+
+  equals(other: Nullable<ObjectId>): boolean {
+    return this.value === other?.value
+  }
+
+  toJSON(): string {
+    return this._value
+  }
+
+  static make(uid?: Nullable<string>): Nullable<ObjectId> {
+    return uid?.trim() ? new ObjectId(uid) : null
+  }
+
+  static withString(uid: string) {
+    return new ObjectId(uid)
+  }
+}

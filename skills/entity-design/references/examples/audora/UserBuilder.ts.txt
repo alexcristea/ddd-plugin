@@ -1,0 +1,39 @@
+// Real file: packages/entities/tests/fakes/UserBuilder.ts
+// The canonical builder: a `ManyBuilder<UserProps, User>` object literal. `build`
+// creates a fully-defaulted `storage: UserProps` (faker for randoms, `NOW` captured
+// once), then `new User({ ...storage, ...model })` so overrides win. `buildMany` maps
+// over `build`. Faker v7 API (`faker.datatype.uuid()`, `faker.name.fullName()`).
+// Imports entities via the `@entities/*` aliases.
+
+import { TenantType, User, UserProps, UserRole, UserStatus } from '@entities/entities'
+import { ObjectId } from '@entities/value-objects'
+import { faker } from '@faker-js/faker'
+import { ManyBuilder } from './Builder'
+
+export const UserBuilder: ManyBuilder<UserProps, User> = {
+  build: (model) => {
+    const NOW = new Date()
+
+    const storage: UserProps = {
+      uid: new ObjectId(faker.datatype.uuid()),
+      email: faker.internet.email(),
+      tenantType: TenantType.backoffice,
+      companyUid: new ObjectId(faker.datatype.uuid()),
+      fullName: faker.name.fullName(),
+      phoneNumber: faker.phone.number(),
+      isOwner: false,
+      status: UserStatus.Disabled,
+      roles: [UserRole.Admin],
+      createdAt: NOW,
+      modifiedAt: NOW,
+    }
+
+    const params = { ...storage, ...model }
+
+    return new User(params)
+  },
+
+  buildMany: (number, overrides) => {
+    return [...Array(number)].map(() => UserBuilder.build(overrides))
+  },
+}

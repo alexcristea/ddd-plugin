@@ -1,0 +1,49 @@
+// Real file: packages/entities/src/value-objects/ObjectId/ObjectId.test.ts
+// Direct instantiation, no mocks. Note `it.each` table tests for normalization and
+// for the nullable factory, plus explicit value-equality assertions.
+
+import { Nullable } from '../types'
+import { ObjectId } from './ObjectId'
+
+describe(ObjectId.name, () => {
+  const UID = 'd90b69cd-8014-43fe-ad35-e96e5e073e90'
+  const values = [
+    ['  uid  ', 'uid'],
+    ['uid', 'uid'],
+  ]
+
+  it('should be able to instantiate a new ObjectId', () => {
+    const objectId = new ObjectId(UID)
+
+    expect(objectId.value).toStrictEqual(UID)
+  })
+
+  it.each(values)('should be represented as a string', (input, expected) => {
+    const objectId = new ObjectId(input)
+
+    expect(objectId.toString()).toStrictEqual(expected)
+  })
+
+  it('should be equaled', () => {
+    const aObjectId = new ObjectId('a')
+    const anotherObjectId = new ObjectId('a')
+
+    const bObjectId = new ObjectId('b')
+
+    expect(aObjectId).toEqual(anotherObjectId)
+    expect(aObjectId).not.toEqual(bObjectId)
+    expect(aObjectId.equals(anotherObjectId)).toBeTruthy()
+  })
+
+  const nullable: [string | undefined | null, Nullable<ObjectId>][] = [
+    [null, null],
+    [undefined, null],
+    [' ', null],
+    ['uid', new ObjectId('uid')],
+  ]
+  it.each(nullable)('should create nullable instances', (value, expected) => {
+    const actual = ObjectId.make(value)
+
+    expect(actual).toStrictEqual(expected)
+  })
+})

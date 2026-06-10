@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate plugin manifest
+        run: |
+          python3 - <<'PY'
+          import json
+          data = json.load(open('.claude-plugin/plugin.json'))
+          for k in ('name', 'version', 'description'):
+              assert k in data, f"plugin.json missing {k!r}"
+          print(f"ok: plugin.json ({data['name']} v{data['version']})")
+          PY
+
+      - name: Validate SKILL.md frontmatter
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys, re
+          required = {'name', 'description', 'allowed-tools'}
+          failures = []
+          for skill_file in pathlib.Path('skills').glob('*/SKILL.md'):
+              text = skill_file.read_text()
+              m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+              if not m:
+                  failures.append(f"{skill_file}: no frontmatter")
+                  continue
+              keys = set(re.findall(r'^([a-zA-Z_-]+):', m.group(1), re.MULTILINE))
+              missing = required - keys
+              if missing:
+                  failures.append(f"{skill_file}: missing {sorted(missing)}")
+              else:
+                  print(f"ok: {skill_file}")
+          if failures:
+              for f in failures:
+                  print(f"FAIL: {f}", file=sys.stderr)
+              sys.exit(1)
+          PY

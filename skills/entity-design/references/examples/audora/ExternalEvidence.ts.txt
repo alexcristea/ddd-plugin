@@ -1,0 +1,82 @@
+// Real file: packages/entities/src/value-objects/ExternalEvidence/ExternalEvidence.ts
+// A MODERN value object: extends `ValueObject`, declares `Props` (constructor input)
+// and `Snapshot` (serializable shape, enums-as-strings), and implements
+// `get snapshot()` returning Object.freeze({...}). `toJSON()` is inherited. One field
+// (`status`) is mutable via a setter; the rest are private readonly. The enums live in
+// the sibling ./types.ts. Note the exported `ExternalEvidenceProps` alias.
+
+import { ValueObject } from '../ValueObject'
+import { ExternalEvidenceStatus, ExternalEvidenceTag, ExternalEvidenceType } from './types'
+
+interface Props {
+  externalId: string
+  title: string
+  type: ExternalEvidenceType
+  tag: ExternalEvidenceTag
+  status: ExternalEvidenceStatus
+}
+
+interface Snapshot {
+  externalId: string
+  title: string
+  type: string
+  tag: string
+  status: string
+}
+
+export class ExternalEvidence extends ValueObject {
+  private readonly _externalId: string
+  private readonly _title: string
+  private readonly _type: ExternalEvidenceType
+  private readonly _tag: ExternalEvidenceTag
+  private _status: ExternalEvidenceStatus
+
+  constructor(params: Props) {
+    super()
+    this._externalId = params.externalId
+    this._title = params.title
+    this._tag = params.tag
+    this._type = params.type
+    this._status = params.status
+  }
+
+  get title() {
+    return this._title
+  }
+
+  get externalId() {
+    return this._externalId
+  }
+
+  get type() {
+    return this._type
+  }
+
+  get tag() {
+    return this._tag
+  }
+
+  get status() {
+    return this._status
+  }
+
+  set status(status: ExternalEvidenceStatus) {
+    this._status = status
+  }
+
+  get isApplicable() {
+    return this._status != ExternalEvidenceStatus.NotApplicable
+  }
+
+  get snapshot(): Snapshot {
+    return Object.freeze({
+      externalId: this.externalId,
+      title: this.title,
+      type: this.type,
+      tag: this.tag,
+      status: this.status,
+    })
+  }
+}
+
+export type ExternalEvidenceProps = Props

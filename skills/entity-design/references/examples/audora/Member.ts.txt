@@ -1,0 +1,82 @@
+// Real file: packages/entities/src/aggregates/Member/Member.ts
+// An aggregate: `implements Aggregate<User>` (does NOT extend Entity). It wraps a root
+// `User` and carries its own identity (`uid`) + audit fields + membership data. Note
+// the convenience getter `userUid` that delegates to the root (`this._root.uid`).
+// Readonly for identity/root/createdAt; setters for the mutable `tenantType`, `roles`,
+// `modifiedAt`.
+
+import { MemberRole, TenantType, User } from '../../entities'
+import { ObjectId } from '../../value-objects'
+import { Aggregate } from '../Aggregate'
+
+export interface MemberProps {
+  // TODO: remove field after the member refactor
+  uid: ObjectId
+  root: User
+  engagementUid: ObjectId
+  tenantType: TenantType
+  roles: MemberRole[]
+  createdAt: Date
+  modifiedAt: Date
+}
+
+export class Member implements Aggregate<User> {
+  private readonly _uid: ObjectId
+  private readonly _root: User
+  private readonly _engagementUid: ObjectId
+  private _tenantType: TenantType
+  private _roles: MemberRole[]
+  private readonly _createdAt: Date
+  private _modifiedAt: Date
+
+  constructor(props: MemberProps) {
+    this._uid = props.uid
+    this._root = props.root
+    this._engagementUid = props.engagementUid
+    this._tenantType = props.tenantType
+    this._roles = props.roles
+    this._createdAt = props.createdAt
+    this._modifiedAt = props.modifiedAt
+  }
+
+  public get uid(): ObjectId {
+    return this._uid
+  }
+
+  public get userUid(): ObjectId {
+    return this._root.uid
+  }
+
+  public get root(): User {
+    return this._root
+  }
+
+  public get engagementUid(): ObjectId {
+    return this._engagementUid
+  }
+
+  public get tenantType(): TenantType {
+    return this._tenantType
+  }
+  public set tenantType(value: TenantType) {
+    this._tenantType = value
+  }
+
+  public get roles(): MemberRole[] {
+    return this._roles
+  }
+  public set roles(roles: MemberRole[]) {
+    this._roles = roles
+  }
+
+  public get createdAt(): Date {
+    return this._createdAt
+  }
+
+  public get modifiedAt(): Date {
+    return this._modifiedAt
+  }
+  public set modifiedAt(modifiedAt: Date) {
+    this._modifiedAt = modifiedAt
+  }
+}

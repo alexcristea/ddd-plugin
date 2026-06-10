@@ -1,0 +1,96 @@
+// Real file: packages/entities/src/entities/User/User.test.ts
+// UPPER_SNAKE_CASE constants + a shared `props` object; construction asserts field
+// read-back; `it.each` drives the `isActive` derived getter; `toJSON` asserts the
+// serialized shape (ObjectIds unwrapped to `.value`); a `setters` describe checks
+// mutation. No mocks.
+
+import { TenantType } from '../../entities'
+import { ObjectId } from '../../value-objects'
+import { User } from './User'
+import { UserRole } from './UserRole'
+import { UserStatus } from './UserStatus'
+
+describe(User.name, () => {
+  const EMAIL = 'test@example.com'
+  const FULL_NAME = 'John Doe'
+  const PHONE_NUMBER = '1234567890'
+  const DATE = new Date('2024-01-31')
+  const UID = new ObjectId('uid')
+  const COMPANY_UID = new ObjectId('companyUid')
+  const ROLES = [UserRole.Admin]
+  const STATUS = UserStatus.Active
+  const IS_OWNER = true
+  const TENANT_TYPE = TenantType.consumer
+
+  const props = {
+    uid: UID,
+    companyUid: COMPANY_UID,
+    email: EMAIL,
+    fullName: FULL_NAME,
+    phoneNumber: PHONE_NUMBER,
+    roles: ROLES,
+    status: STATUS,
+    isOwner: IS_OWNER,
+    tenantType: TENANT_TYPE,
+    createdAt: DATE,
+    modifiedAt: DATE,
+  }
+
+  it('should create a new instance', () => {
+    const sut = new User(props)
+
+    expect(sut.companyUid).toStrictEqual(COMPANY_UID)
+    expect(sut.email).toStrictEqual(EMAIL)
+    expect(sut.fullName).toStrictEqual(FULL_NAME)
+    expect(sut.phoneNumber).toStrictEqual(PHONE_NUMBER)
+    expect(sut.roles).toStrictEqual(ROLES)
+    expect(sut.status).toStrictEqual(STATUS)
+    expect(sut.isOwner).toStrictEqual(IS_OWNER)
+    expect(sut.tenantType).toStrictEqual(TENANT_TYPE)
+  })
+
+  const statuses: [UserStatus, boolean][] = [
+    [UserStatus.Pending, false],
+    [UserStatus.Active, true],
+    [UserStatus.Disabled, false],
+  ]
+  it.each(statuses)('should compute isActive flag when the status is %s', (STATUS, IS_ACTIVE) => {
+    const sut = new User(props)
+    sut.status = STATUS
+
+    expect(sut.isActive).toStrictEqual(IS_ACTIVE)
+  })
+
+  it('should serialize to JSON', () => {
+    const sut = new User(props)
+
+    expect(sut.toJSON()).toStrictEqual({
+      id: UID.value,
+      companyUid: COMPANY_UID.value,
+      email: EMAIL,
+      fullName: FULL_NAME,
+      phoneNumber: PHONE_NUMBER,
+      roles: ROLES,
+      status: STATUS,
+      isOwner: IS_OWNER,
+      tenantType: TENANT_TYPE,
+      createdAt: DATE,
+      modifiedAt: DATE,
+    })
+  })
+
+  describe('setters', () => {
+    const NEW_ROLES = [UserRole.ProjectManager, UserRole.Admin]
+    const NEW_IS_OWNER = !IS_OWNER
+
+    const sut = new User(props)
+
+    it('should update the data', () => {
+      sut.roles = NEW_ROLES
+      sut.isOwner = NEW_IS_OWNER
+
+      expect(sut.roles).toStrictEqual(NEW_ROLES)
+      expect(sut.isOwner).toStrictEqual(NEW_IS_OWNER)
+    })
+  })
+})
