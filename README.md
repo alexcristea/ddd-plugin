@@ -25,10 +25,10 @@ The design skills read these first. If one is missing, `ddd:create-profile` deri
 
 ## Install
 
-From the [over-engineering-plugins marketplace](https://github.com/alexcristea/claude-marketplace):
+From the [over-engineering-plugins marketplace](https://github.com/alexcristea/over-engineering-plugins):
 
 ```
-/plugin marketplace add alexcristea/claude-marketplace
+/plugin marketplace add alexcristea/over-engineering-plugins
 /plugin install ddd@over-engineering-plugins
 ```
 
