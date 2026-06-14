@@ -46,3 +46,6 @@ jobs:
                   print(f"FAIL: {f}", file=sys.stderr)
               sys.exit(1)
           PY
+
+      - name: Validate skill cross-references
+        run: python3 scripts/check_skill_refs.py

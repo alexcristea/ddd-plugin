@@ -32,8 +32,6 @@ builders live, the codegen command, file placement, the run command — lives in
 **Do not use** for:
 - Usecase / interactor / step / domain-factory tests → use **`ddd:usecase-tests`**.
 - HTTP-handler, controller, or repository-adapter tests that touch a DB or network.
-- Permission / transition **matrix** testing (the `assert*`/`MatrixBuilder` pattern) —
-  that is an adjacent permissions concern, owned by `ddd:usecase-tests`.
 
 A domain-model unit test instantiates the real object and asserts on its behavior;
 it never mocks a collaborator (there are none — the model has no injected ports).
