@@ -2,7 +2,7 @@
  * AUDORA EXAMPLE — testing a Step collaborator.
  * Distilled from: packages/core/src/steps/ValidateControlStep/ValidateControlStep.test.ts
  *
- * Illustrates (profile: .claude/ddd/usecase-tests.md — worked example: create-profile/references/examples/audora/usecase-tests.md):
+ * Illustrates (profile: .claude/ddd/usecase-design.md — worked example: create-profile/references/examples/audora/usecase-design.md):
  *  - a Step<In, Out> SUT (§6): single `run(input)` entry method, plain object of deps in the constructor
  *  - mock its repository dependency with `mock<T>()` (§3)
  *  - `runningTheSut` wraps `sut.run(...)`; one `given`/`it` per outcome (§9)

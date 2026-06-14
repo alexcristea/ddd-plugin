@@ -12,7 +12,7 @@ from SQL execution, drives every query from a typed **Criteria** object, and
 verifies the generated SQL with a string-level assertion — no real database.
 
 It is the persistence-layer member of a skill family: **`ddd:entity-design`**
-(the domain entities a Mapper produces) and **`ddd:usecase-tests`** (the
+(the domain entities a Mapper produces) and **`ddd:usecase-design`** (the
 application layer that calls the port). It does **not** design entities, test
 usecases, or test HTTP handlers — defer those to the sibling skills.
 
@@ -30,7 +30,7 @@ Load that first (§3).
 - Its **query builder** (pure SQL construction), **query runner** (execution + mapping), and **mapper** (row ↔ entity).
 
 **Do not use** for:
-- Usecase / step / factory unit tests → use **`ddd:usecase-tests`**.
+- Usecase / step / factory unit tests → use **`ddd:usecase-design`**.
 - Entity / value-object invariant tests (no persistence).
 - Tests that hit a real database or run migrations (these are integration tests; this skill mocks the DB entirely).
 

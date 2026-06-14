@@ -9,7 +9,7 @@ allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 This skill builds and unit-tests the **innermost layer** of a Clean Architecture
 codebase — the domain model: **Entities, Value Objects, Aggregates, and
 Collections** — plus the **test-data Builders** other layers depend on. It is the
-companion to `ddd:usecase-tests`, which sits one layer up (usecases/steps/factories);
+companion to `ddd:usecase-design`, which sits one layer up (usecases/steps/factories);
 this skill owns the objects those usecases manipulate.
 
 The methodology here is generic. Everything that varies per repository — base-class
@@ -30,7 +30,7 @@ builders live, the codegen command, file placement, the run command — lives in
   layers import to construct domain objects in their own tests.
 
 **Do not use** for:
-- Usecase / interactor / step / domain-factory tests → use **`ddd:usecase-tests`**.
+- Usecase / interactor / step / domain-factory tests → use **`ddd:usecase-design`**.
 - HTTP-handler, controller, or repository-adapter tests that touch a DB or network.
 
 A domain-model unit test instantiates the real object and asserts on its behavior;

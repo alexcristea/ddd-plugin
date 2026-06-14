@@ -3,7 +3,7 @@
  * Distilled (abridged) from: packages/core/src/usecases/Comments/CreateComment/CreateComment.test.ts
  * See that file for the full set of mention/notification branches.
  *
- * Illustrates (profile: .claude/ddd/usecase-tests.md — worked example: create-profile/references/examples/audora/usecase-tests.md):
+ * Illustrates (profile: .claude/ddd/usecase-design.md — worked example: create-profile/references/examples/audora/usecase-design.md):
  *  - the THREE-ARG constructor (§2): `(params, steps, factories)` — note `{ commentFactory }`
  *  - GATE BYPASS (§4) with multiple setters: `sut.engagement`, `sut.currentUser`, `sut.currentMember`
  *  - `describe.each([...])('given the comment type is <%s>', (commentType, foreignKey) => {…})`

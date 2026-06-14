@@ -2,7 +2,7 @@
  * AUDORA EXAMPLE — permission-gated usecase, deep scenario tree, error paths.
  * Distilled from: packages/core/src/usecases/Controls/CreateControl/CreateControlUsecase.test.ts
  *
- * Illustrates (profile: .claude/ddd/usecase-tests.md — worked example: create-profile/references/examples/audora/usecase-tests.md):
+ * Illustrates (profile: .claude/ddd/usecase-design.md — worked example: create-profile/references/examples/audora/usecase-design.md):
  *  - `(params, steps)` constructor grouping (§2): repositories+generators in params, Validate*Step + MakeDefaultStepDueDateStep in steps
  *  - the GATE BYPASS (§4): test `executeTemplate` directly and set `sut.engagement = ENGAGEMENT`
  *    instead of driving the full validateMemberPermissions pipeline (tested in usecases/core/*)

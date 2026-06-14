@@ -2,8 +2,8 @@
 
 > Fill one of these per repository. It captures everything project-specific that
 > the generic `SKILL.md` defers to. Copy this file to
-> `.claude/ddd/usecase-tests.md` **in the target repo** and complete every slot.
-> Derive values by reading one existing usecase test in the target repo.
+> `.claude/ddd/usecase-design.md` **in the target repo** and complete every slot.
+> Derive values by reading one existing usecase and its test in the target repo.
 
 ## 1. Entry method(s)
 - **Public entry method:** `<<execute>>` — the single `Interactor` method.

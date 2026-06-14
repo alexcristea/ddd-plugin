@@ -1,6 +1,6 @@
 ---
 name: create-profile
-description: Derive and maintain the per-project DDD profiles consumed by ddd:entity-design, ddd:repository-design, and ddd:usecase-tests. Use when a target repo has no .claude/ddd/ profiles, when a design skill reports a missing profile, when project conventions change, or when onboarding the DDD skill suite onto a new codebase.
+description: Derive and maintain the per-project DDD profiles consumed by ddd:entity-design, ddd:repository-design, and ddd:usecase-design. Use when a target repo has no .claude/ddd/ profiles, when a design skill reports a missing profile, when project conventions change, or when onboarding the DDD skill suite onto a new codebase.
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
@@ -27,7 +27,7 @@ One profile per design skill, in the target repo root:
 ```
 .claude/ddd/entity-design.md        ← consumed by ddd:entity-design
 .claude/ddd/repository-design.md    ← consumed by ddd:repository-design
-.claude/ddd/usecase-tests.md        ← consumed by ddd:usecase-tests
+.claude/ddd/usecase-design.md        ← consumed by ddd:usecase-design
 ```
 
 Create only the profiles the user needs right now (usually the one whose design
@@ -67,7 +67,7 @@ repo with no repositories.
 |---|---|---|
 | `entity-design.md` | One existing **Entity**, one **Value Object**, one **Builder** (plus their tests) | Base classes + import paths, identity/audit fields, serialization contract (`snapshot`/`toJSON`), VO factory conventions, directory + barrel layout, codegen command, builder location + alias, test placement, run command, domain-error hierarchy |
 | `repository-design.md` | One existing **repository folder** (QueryBuilder / QueryRunner / Mapper / Repository) plus the **shared base classes** | Query-builder library, base-class names + what they provide, shared QueryRunner surface, SQL-assertion helper + dummy DB, Criteria/port type locations, schema/row aliases, mock library, run command |
-| `usecase-tests.md` | One existing **usecase test** (ideally one simple, one permission-gated) | Entry method name(s), constructor dependency grouping, mock library, pre-validated-state bypass, steps/factories pattern, import aliases, builder locations, test placement, run command |
+| `usecase-design.md` | One existing **usecase plus its test** (ideally one simple, one permission-gated) | Entry method name(s), `Interactor` contract + base-class hierarchy, constructor dependency grouping, mock library, pre-validated-state bypass, steps/factories pattern, import aliases, builder/factory locations, test placement, run command |
 
 ---
 
@@ -76,9 +76,9 @@ repo with no repositories.
 Blank templates (copy + fill):
 - `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/templates/entity-design.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/templates/repository-design.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/templates/usecase-tests.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/templates/usecase-design.md`
 
 Fully worked example set (the *Audora* monorepo — the completeness bar):
 - `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/examples/audora/entity-design.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/examples/audora/repository-design.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/examples/audora/usecase-tests.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/examples/audora/usecase-design.md`

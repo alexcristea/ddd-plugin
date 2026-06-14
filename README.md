@@ -9,7 +9,7 @@ Design and unit-test the layers of a DDD / Clean Architecture codebase. The meth
 | `ddd:create-profile` | — | Derive and maintain the per-project profiles the other skills consume. Run once per repo (and when conventions change). |
 | `ddd:entity-design` | Domain model | Design + unit-test Entities, Value Objects, Aggregates, Collections, and their test-data Builders. |
 | `ddd:repository-design` | Persistence adapter | Design + test repositories on a SQL query builder: QueryBuilder / QueryRunner / Mapper, Criteria-driven queries, SQL-string assertions. |
-| `ddd:usecase-tests` | Application | Unit-test usecases / interactors: mock every injected port, given/scenario trees, builder-backed test data. |
+| `ddd:usecase-design` | Application | Design + unit-test usecases / interactors: the Interactor contract, steps & factories, base-class validation gate; mock every injected port, given/scenario trees, builder-backed test data. |
 
 ## The profile convention
 
@@ -18,7 +18,7 @@ Each consuming repo holds its profiles at:
 ```
 .claude/ddd/entity-design.md
 .claude/ddd/repository-design.md
-.claude/ddd/usecase-tests.md
+.claude/ddd/usecase-design.md
 ```
 
 The design skills read these first. If one is missing, `ddd:create-profile` derives it from the repo's existing code (one exemplar per concept), confirms ambiguous slots with you, and writes it into the repo — commit it so teammates and future sessions get it for free. Blank templates and a fully worked example set (the *audora* project) live under `skills/create-profile/references/`.

@@ -3,7 +3,7 @@
 Domain-model layer at `packages/entities/src/`. Pure objects — no injected ports, no
 DB/network. Apply this profile when designing or unit-testing entities, value objects,
 aggregates, collections, or their builders under `packages/entities/`. (Usecases that
-consume these live in `@audora/core` → use `ddd:usecase-tests`.)
+consume these live in `@audora/core` → use `ddd:usecase-design`.)
 
 ## 1. Base classes & import paths
 | Concept | Base class | Import path / alias | Notes |

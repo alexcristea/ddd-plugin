@@ -2,7 +2,7 @@
  * AUDORA EXAMPLE — simplest usecase test (identity-gated read).
  * Distilled from: packages/core/src/usecases/Users/GetCurrentUserUsecase/GetCurrentUserUsecase.test.ts
  *
- * Illustrates (profile: .claude/ddd/usecase-tests.md — worked example: create-profile/references/examples/audora/usecase-tests.md):
+ * Illustrates (profile: .claude/ddd/usecase-design.md — worked example: create-profile/references/examples/audora/usecase-design.md):
  *  - `mock<T>()` for the one injected step (§3)
  *  - SUT built with a single `steps`-style object (§2) — this usecase has no `params`
  *  - `describe(Sut.name)` + `describe(sut.executeTemplate.name)` (§9)

@@ -3,7 +3,7 @@
  *
  * This file is a *teaching reference*, not runnable code — the imports are
  * illustrative. Replace names/aliases with the values from your Project Profile
- * (.claude/ddd/usecase-tests.md). It demonstrates the universal shape:
+ * (.claude/ddd/usecase-design.md). It demonstrates the universal shape:
  *
  *   contract  -> mocks + SUT
  *   gate      -> inject pre-validated state (if the usecase is gated)
