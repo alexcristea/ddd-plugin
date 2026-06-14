@@ -258,88 +258,10 @@ Rules:
 
 See `${CLAUDE_PLUGIN_ROOT}/skills/entity-design/references/builder.ts`.
 
-## 12. Condensed skeletons
+## 12. Reference files
 
-Replace `<<…>>` with profile values.
-
-**Value Object**
-```ts
-import { ValueObject } from '<<vo-base>>'
-interface Props { value: string }
-interface Snapshot { value: string }
-export class <<Foo>> extends ValueObject {
-  private readonly _value: string
-  constructor(params: Props) { super(); this._value = params.value.trim() }   // normalize
-  get value() { return this._value }
-  equals(other: <<Foo>> | null) { return this._value === other?.value }
-  get snapshot(): Snapshot { return Object.freeze({ value: this._value }) }
-  static make(v?: string | null) { return v?.trim() ? new <<Foo>>({ value: v }) : null }
-}
-export type <<Foo>>Props = Props
-```
-
-**Entity**
-```ts
-import { Entity, EntityProps } from '<<entity-base>>'
-export interface <<Foo>>Props extends EntityProps { name: string; status?: <<Status>> }
-export class <<Foo>> extends Entity {
-  private _name: string
-  private _status: <<Status>>
-  constructor(props: <<Foo>>Props) {
-    super(props)
-    this._name = props.name
-    this._status = props.status || <<Status>>.Default
-  }
-  get name() { return this._name }; set name(v: string) { this._name = v }
-  get status() { return this._status }; set status(v: <<Status>>) { this._status = v }
-  get isActive() { return this._status === <<Status>>.Active }
-  toJSON() { return { id: this.uid.value, name: this._name, status: this._status,
-                      createdAt: this._createdAt, modifiedAt: this._modifiedAt } }
-}
-```
-
-**Value Object test**
-```ts
-import { <<Foo>> } from './<<Foo>>'
-describe(<<Foo>>.name, () => {
-  it('should normalize on construction', () => {
-    expect(new <<Foo>>({ value: '  x  ' }).value).toStrictEqual('x')
-  })
-  it('should serialize to its snapshot', () => {
-    const sut = new <<Foo>>({ value: 'x' })
-    expect(sut.snapshot).toStrictEqual({ value: 'x' })
-    expect(sut.toJSON()).toStrictEqual(sut.snapshot)
-  })
-  it('should compare by value', () => {
-    expect(new <<Foo>>({ value: 'x' }).equals(new <<Foo>>({ value: 'x' }))).toBe(true)
-  })
-})
-```
-
-**Entity / Aggregate test**
-```ts
-import { <<FooBuilder>> } from '<<fakes-alias>>'
-import { <<Foo>> } from './<<Foo>>'
-describe(<<Foo>>.name, () => {
-  const NOW = new Date('2021-01-01')
-  const UID = new <<Id>>('UID')
-  const props = { uid: UID, name: 'NAME', createdAt: NOW, modifiedAt: NOW }
-
-  it('should create a new instance', () => {
-    const sut = new <<Foo>>(props)
-    expect(sut.uid).toStrictEqual(UID)
-    expect(sut.name).toStrictEqual('NAME')
-  })
-
-  const cases: [<<Status>>, boolean][] = [ /* [input, expected] */ ]
-  it.each(cases)('should compute isActive when status is %s', (status, expected) => {
-    const sut = new <<Foo>>(props); sut.status = status
-    expect(sut.isActive).toStrictEqual(expected)
-  })
-})
-```
-
-## 13. Reference files
+These are the full, worked form of the procedures above (§5–§7, §10) — read the
+relevant one before designing or testing rather than inlining a skeleton here.
 
 Generic, library-neutral templates (read first):
 - `${CLAUDE_PLUGIN_ROOT}/skills/entity-design/references/value-object.ts` / `${CLAUDE_PLUGIN_ROOT}/skills/entity-design/references/value-object.test.ts`
