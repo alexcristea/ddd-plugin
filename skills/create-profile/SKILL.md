@@ -58,6 +58,15 @@ repo with no repositories.
    1–2 recent files per concept that the design skill should open and imitate.
 6. **Write the profile to `.claude/ddd/<skill>.md`** in the target repo and tell
    the user to commit it.
+7. **Offer** to add a one-line pointer to the repo's root `CLAUDE.md` so the
+   conventions are discoverable outside a `ddd:*` skill (Claude auto-loads
+   `CLAUDE.md`, but not `.claude/ddd/*.md`). Default to suggesting a plain
+   **mention** — e.g. *"DDD / Clean Architecture; layer conventions live in
+   `.claude/ddd/`, loaded on demand by the `ddd:*` skills."* — which keeps the
+   baseline context lean. Offer an **`@import`** (`@.claude/ddd/<skill>.md`) as the
+   always-on upgrade, noting it makes that profile resident in every prompt; never
+   import all profiles by default. **Only edit `CLAUDE.md` if the user agrees** —
+   like the profile itself, this is opt-in, never automatic.
 
 ---
 

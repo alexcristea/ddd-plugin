@@ -21,7 +21,7 @@ Each consuming repo holds its profiles at:
 .claude/ddd/usecase-design.md
 ```
 
-The design skills read these first. If one is missing, `ddd:create-profile` derives it from the repo's existing code (one exemplar per concept), confirms ambiguous slots with you, and writes it into the repo — commit it so teammates and future sessions get it for free. Blank templates and a fully worked example set (the *audora* project) live under `skills/create-profile/references/`.
+The design skills read these first **if present**, but never write one on their own: when a profile is missing they fall back to inferring conventions from your existing code for that session only, and may *suggest* running `ddd:create-profile`. Run `ddd:create-profile` explicitly when you want a committed profile — it derives one from the repo (one exemplar per concept), confirms ambiguous slots with you, and writes it into the repo so teammates and future sessions get it for free. Blank templates and a fully worked example set (the *audora* project) live under `skills/create-profile/references/`.
 
 ## How the profile gets discovered
 
@@ -36,6 +36,8 @@ The trade-off: the conventions **won't apply during ad-hoc edits** when no `ddd:
 DDD / Clean Architecture. Layer conventions live in `.claude/ddd/` and are
 loaded on demand by the `ddd:*` skills. @.claude/ddd/entity-design.md
 ```
+
+When it writes a profile, `ddd:create-profile` will **offer** to add this pointer for you (defaulting to the lean mention, with the `@import` as an opt-in upgrade) — it never edits `CLAUDE.md` without asking.
 
 Use skills for deep, on-demand methodology; use `CLAUDE.md` for the always-on baseline. (Importing all three profiles adds them to every prompt — import only what you want resident, and let the skills load the rest.)
 

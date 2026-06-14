@@ -72,11 +72,13 @@ Read the profile that matches the repo before designing or testing:
 
 1. Look for `.claude/ddd/usecase-design.md` in the target repo root. When present,
    it is the source of truth for every project-specific slot referenced below.
-2. If it is missing, follow **`ddd:create-profile`** to derive one by reading
-   **one existing usecase plus its test** (ideally one simple, one
-   permission-gated), confirm ambiguous slots with the user, and **write it to
-   `.claude/ddd/usecase-design.md` in the target repo** — so it is found next time
-   and shared with the team.
+2. If it is missing, **do not create one automatically.** Proceed with this
+   skill's generic methodology, deriving the project-specific slots for *this
+   session* by reading the repo's existing exemplars directly (one existing
+   usecase plus its test — ideally one simple, one permission-gated). Once done,
+   you may **suggest** the user run **`ddd:create-profile`** to capture those
+   conventions in a committed `.claude/ddd/usecase-design.md` for next time — but
+   only create that file when they ask.
 3. For a fully worked example of a completed profile, see
    `${CLAUDE_PLUGIN_ROOT}/skills/create-profile/references/examples/audora/usecase-design.md`.
 
