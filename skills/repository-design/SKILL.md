@@ -1,6 +1,6 @@
 ---
 name: repository-design
-description: Design and test persistence repositories (the adapter layer of ports-&-adapters / Clean Architecture) on a SQL query builder. Decouple query construction from execution, drive queries from a Criteria object at the boundary, remove duplication with base query-builder classes, map rows ↔ domain entities, and test the generated SQL against an expected raw query. Use when adding or changing a repository, query builder, query runner, or mapper. Load the project profile from .claude/ddd/repository-design.md in the target repo first; if missing, run ddd:create-profile.
+description: Design and test persistence repositories (the adapter layer of ports-&-adapters / Clean Architecture) on a SQL query builder. Decouple query construction from execution, drive queries from a Criteria object at the boundary, remove duplication with base query-builder classes, map rows ↔ domain entities, and test the generated SQL against an expected raw query. Use when adding or changing a repository, query builder, query runner, or mapper.
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 

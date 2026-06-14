@@ -1,6 +1,6 @@
 ---
 name: usecase-tests
-description: Write unit tests for domain usecases in DDD / Clean Architecture projects — recognize the Interactor contract, mock every injected port, isolate the usecase from cross-cutting validation, build given/scenario trees, and use builders for test data. Use when writing or updating usecase, step, or factory unit tests. Load the project profile from .claude/ddd/usecase-tests.md in the target repo first; if missing, run ddd:create-profile.
+description: Write unit tests for domain usecases in DDD / Clean Architecture projects — recognize the Interactor contract, mock every injected port, isolate the usecase from cross-cutting validation, build given/scenario trees, and use builders for test data. Use when writing or updating usecase, step, or factory unit tests.
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 

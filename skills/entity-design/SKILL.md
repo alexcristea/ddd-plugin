@@ -1,6 +1,6 @@
 ---
 name: entity-design
-description: Design and unit-test the domain-model layer of a DDD / Clean Architecture project — Entities, Value Objects, Aggregates, Collections, and their test-data Builders, following the project's base-class contracts and conventions. Use when designing, refactoring, or writing unit tests for an entity, value object, aggregate, collection, or builder. Load the project profile from .claude/ddd/entity-design.md in the target repo first; if missing, run ddd:create-profile.
+description: Design and unit-test the domain-model layer of a DDD / Clean Architecture project — Entities, Value Objects, Aggregates, Collections, and their test-data Builders, following the project's base-class contracts and conventions. Use when designing, refactoring, or writing unit tests for an entity, value object, aggregate, collection, or builder.
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
